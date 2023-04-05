@@ -1,0 +1,11 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+  @apply flex flex-col items-center;
+}
+
+#root {
+  @apply w-full max-w-screen-2xl;
+}
