@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
+import { login } from "../api/firebase";
 
 export default function Navbar(): JSX.Element {
   return (
@@ -15,7 +16,7 @@ export default function Navbar(): JSX.Element {
         <Link to="/products/new" className="text-2xl">
           <BsFillPencilFill />
         </Link>
-        <button>Login</button>
+        <button onClick={login}>Login</button>
       </nav>
     </header>
   );
