@@ -1,7 +1,11 @@
-import "./App.css";
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
-function App() {
-  return <div className="App">g1</div>;
+export default function App(): JSX.Element {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
 }
-
-export default App;
