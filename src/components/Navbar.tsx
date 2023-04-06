@@ -2,14 +2,20 @@ import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
 import { login, logout, onUserStateChange } from "../api/firebase";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import User from "./User";
+import Button from "./Button";
 
 export default function Navbar(): JSX.Element {
-  const [user, setUser] = useState();
+  interface UserInfo {
+    photoURL: string;
+    displayName: string;
+    isAdmin: string;
+  }
+  const [user, setUser] = useState<UserInfo>();
 
   useEffect(() => {
-    onUserStateChange((user: SetStateAction<undefined>) => {
+    onUserStateChange((user: any) => {
       console.log(user);
       setUser(user);
     });
@@ -24,12 +30,14 @@ export default function Navbar(): JSX.Element {
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
         <Link to="/carts">Carts</Link>
-        <Link to="/products/new" className="text-2xl">
-          <BsFillPencilFill />
-        </Link>
+        {user && user.isAdmin && (
+          <Link to="/products/new" className="text-2xl">
+            <BsFillPencilFill />
+          </Link>
+        )}
         {user && <User user={user} />}
-        {!user && <button onClick={login}>Login</button>}
-        {user && <button onClick={logout}>Logout</button>}
+        {!user && <Button text={"login"} onClick={login}></Button>}
+        {user && <Button text={"logout"} onClick={logout}></Button>}
       </nav>
     </header>
   );
