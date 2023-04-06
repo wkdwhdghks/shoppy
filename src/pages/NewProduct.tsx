@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { uploadImage } from "../api/uploader";
+import { addNewProduct } from "../api/firebase";
 
 export default function NewProduct(): JSX.Element {
   interface ProductInfo {
     title?: string | undefined;
-    price?: number | undefined;
+    price?: string | undefined;
     category?: string | undefined;
     description?: string | undefined;
     options?: string | undefined;
@@ -26,7 +27,7 @@ export default function NewProduct(): JSX.Element {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     uploadImage(file).then((url) => {
-      console.log(url);
+      addNewProduct(product, url);
     });
   };
 
