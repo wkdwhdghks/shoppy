@@ -4,7 +4,7 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { login, logout, onUserStateChange } from "../api/firebase";
 import { useEffect, useState } from "react";
 import User from "./User";
-import Button from "./Button";
+import Button from "./ui/Button";
 
 export default function Navbar(): JSX.Element {
   interface UserInfo {
