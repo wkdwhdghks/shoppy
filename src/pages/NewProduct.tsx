@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { uploadImage } from "../api/uploader";
 
 export default function NewProduct(): JSX.Element {
   interface ProductInfo {
@@ -24,6 +25,9 @@ export default function NewProduct(): JSX.Element {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    uploadImage(file).then((url) => {
+      console.log(url);
+    });
   };
 
   return (
