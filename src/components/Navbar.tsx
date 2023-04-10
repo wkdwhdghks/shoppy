@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
-import { login, logout, onUserStateChange } from "../api/firebase";
-import { useEffect, useState } from "react";
+import { login, logout } from "../api/firebase";
 import User from "./User";
 import Button from "./ui/Button";
+import CartStatus from "./CartStatus";
 
 export default function Navbar({ user }: { user: any }): JSX.Element {
   return (
@@ -15,7 +15,9 @@ export default function Navbar({ user }: { user: any }): JSX.Element {
       </Link>
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
-        <Link to="/carts">Carts</Link>
+        <Link to="/carts">
+          <CartStatus user={user} />
+        </Link>
         {user && user.isAdmin && (
           <Link to="/products/new" className="text-2xl">
             <BsFillPencilFill />
