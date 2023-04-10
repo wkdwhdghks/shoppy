@@ -6,21 +6,7 @@ import { useEffect, useState } from "react";
 import User from "./User";
 import Button from "./ui/Button";
 
-export default function Navbar(): JSX.Element {
-  interface UserInfo {
-    photoURL: string;
-    displayName: string;
-    isAdmin: string;
-  }
-  const [user, setUser] = useState<UserInfo>();
-
-  useEffect(() => {
-    onUserStateChange((user: any) => {
-      console.log(user);
-      setUser(user);
-    });
-  }, []);
-
+export default function Navbar({ user }: { user: any }): JSX.Element {
   return (
     <header className="flex justify-between border-b border-gray-300 p-2">
       <Link to="/" className="flex items-center text-4xl text-brand">

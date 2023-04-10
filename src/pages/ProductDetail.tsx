@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import Button from "../components/ui/Button";
+import { addOrUpdateToCart } from "../api/firebase";
 
 export default function ProductDetail(): JSX.Element {
+  interface User {
+    user: any;
+  }
+
+  const { user } = useOutletContext<User>();
+
   const {
     state: {
       product: { id, image, title, description, category, price, options },
@@ -15,7 +22,10 @@ export default function ProductDetail(): JSX.Element {
     setSelected(e.target.value);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const product = { id, image, title, price, option: selected, quantity: 1 };
+    addOrUpdateToCart(user.uid, product);
+  };
 
   return (
     <>
