@@ -24,7 +24,7 @@ export default function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <Navbar user={user} />
-      <Outlet context={{ user: user }} />
+      {user && <Outlet context={{ user: user }} />}
     </QueryClientProvider>
   );
 }

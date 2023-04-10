@@ -15,9 +15,7 @@ export default function Navbar({ user }: { user: any }): JSX.Element {
       </Link>
       <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
-        <Link to="/carts">
-          <CartStatus user={user} />
-        </Link>
+        <Link to="/carts">{user && <CartStatus user={user} />}</Link>
         {user && user.isAdmin && (
           <Link to="/products/new" className="text-2xl">
             <BsFillPencilFill />
