@@ -16,7 +16,6 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     onUserStateChange((user: any) => {
-      console.log(user);
       setUser(user);
     });
   }, []);

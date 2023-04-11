@@ -1,24 +1,16 @@
-import { useOutletContext } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { getCart } from "../api/firebase";
 import CartItem from "../components/ui/CartItem";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { FaEquals } from "react-icons/fa";
 import PriceCard from "../components/PriceCard";
 import Button from "../components/ui/Button";
+import useCart from "../hooks/useCart";
 
 const SHIPPING: number = 3000;
 
 export default function MyCart(): JSX.Element {
-  interface User {
-    user: any;
-  }
-
-  const { user } = useOutletContext<User>();
-
-  const { isLoading, data: products } = useQuery(["carts"], () =>
-    getCart(user.uid)
-  );
+  const {
+    cartQuery: { isLoading, data: products },
+  } = useCart();
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -42,7 +34,7 @@ export default function MyCart(): JSX.Element {
           <ul className="border-b border-gray-300 mb-8 p-4 px-8">
             {products &&
               products.map((product: any) => (
-                <CartItem key={product.id} product={product} uid={user.uid} />
+                <CartItem key={product.id} product={product} />
               ))}
           </ul>
           <div className="flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16">

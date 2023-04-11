@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Button from "../components/ui/Button";
-import { addOrUpdateToCart } from "../api/firebase";
+import useCart from "../hooks/useCart";
 
 export default function ProductDetail(): JSX.Element {
-  interface User {
-    user: any;
-  }
-
-  const { user } = useOutletContext<User>();
+  const { addOrUpdateItem } = useCart();
 
   const {
     state: {
@@ -16,6 +12,7 @@ export default function ProductDetail(): JSX.Element {
     },
   } = useLocation();
 
+  const [success, setSuccess] = useState();
   const [selected, setSelected] = useState(options && options[0]);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,7 +21,12 @@ export default function ProductDetail(): JSX.Element {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const product = { id, image, title, price, option: selected, quantity: 1 };
-    addOrUpdateToCart(user.uid, product);
+    addOrUpdateItem.mutate(product as any, {
+      onSuccess: () => {
+        setSuccess("장바구니에 추가되었습니다." as any);
+        setTimeout(() => setSuccess(null as any), 30000);
+      },
+    });
   };
 
   return (
@@ -54,6 +56,7 @@ export default function ProductDetail(): JSX.Element {
                 ))}
             </select>
           </div>
+          {success && <p className="my-2">{success}</p>}
           <Button text="장바구니에 추가" onClick={handleClick}></Button>
         </div>
       </section>
